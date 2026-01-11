@@ -4,6 +4,6 @@ type Menu struct {
 	Commands CommandMap
 }
 
-func (m *Menu) ActCommand(name Name, flags ...Flag) error {
-	return m.Commands[name].Action(flags...)
+func (m *Menu) ActCommand(name Name) error {
+	return m.Commands[name].Action()
 }

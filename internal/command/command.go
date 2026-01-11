@@ -1,8 +1,7 @@
 package command
 
 type Command struct {
-	Flags  []string
-	Action func(flags ...Flag) error
+	Action func() error
 }
 
 type Name string
