@@ -1,7 +1,9 @@
 package command
 
+type ActionFunc func() error
+
 type Command struct {
-	Action func() error
+	Action ActionFunc
 }
 
 type Name string
