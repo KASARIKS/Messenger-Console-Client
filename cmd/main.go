@@ -26,6 +26,13 @@ func main() {
 			"delete": command.Command{
 				Action: actions.DeleteUserAction,
 			},
+
+			"send": command.Command{
+				Action: actions.SendMessage,
+			},
+			"get": command.Command{
+				Action: actions.GetMessages,
+			},
 		},
 	}
 
