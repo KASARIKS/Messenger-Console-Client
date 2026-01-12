@@ -22,6 +22,10 @@ func main() {
 			"login": command.Command{
 				Action: actions.LoginAction,
 			},
+
+			"delete": command.Command{
+				Action: actions.DeleteUserAction,
+			},
 		},
 	}
 

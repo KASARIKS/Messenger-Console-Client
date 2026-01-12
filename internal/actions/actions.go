@@ -3,6 +3,7 @@ package actions
 import (
 	"encoding/json"
 	"fmt"
+	"os"
 
 	"github.com/kasariks/messenger_console_client/internal/utils"
 	"github.com/kasariks/messenger_console_client/types"
@@ -52,7 +53,22 @@ func LoginAction() error {
 		return err
 	}
 
-	fmt.Println(*gottenResult)
+	if err := os.WriteFile("token.json", []byte((*gottenResult)["token"]), 0644); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func DeleteUserAction() error {
+	token, err := os.ReadFile("token.json")
+	if err != nil {
+		return err
+	}
+
+	if _, err = utils.SendDeleteRequest("/delete", string(token)); err != nil {
+		return err
+	}
 
 	return nil
 }

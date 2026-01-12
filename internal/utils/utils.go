@@ -64,6 +64,31 @@ func SendPostRequest(path string, data []byte) (*map[string]string, error) {
 	return gottenResult, nil
 }
 
+func SendDeleteRequest(path string, token string) (*map[string]string, error) {
+	req, err := http.NewRequest(http.MethodDelete, "http://localhost:8080"+path, nil)
+	if err != nil {
+		return nil, err
+	}
+	req.Header.Add("Authorization", token)
+
+	resp, err := (&http.Client{}).Do(req)
+	if err != nil {
+		return nil, fmt.Errorf("error with sending the request: %v", err)
+	}
+	defer resp.Body.Close()
+
+	gottenResult, err := getResult(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("error has gotten from the server: %s", (*gottenResult)["error"])
+	}
+
+	return gottenResult, nil
+}
+
 func getResult(body io.ReadCloser) (*map[string]string, error) {
 	var gottenResult map[string]string
 
